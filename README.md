@@ -12,5 +12,5 @@ Compare diffusion vs flow matching for image generation.
 CIFAR10 (initial)
 
 ## Models
-- U-Net diffusion baseline
+- Diffusion Transformer
 - Flow matching vector field model
