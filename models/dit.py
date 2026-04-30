@@ -66,6 +66,7 @@ class VisionEncoder(nn.Module):
 		x = self.linear(x)
 		return x
 
+# 4. Diffusion Transformer for generating image
 class DiT(nn.Module):
 	def __init__(self, in_channels: int = 3, hidden_size: int = 256, num_heads: int = 6, num_layers: int = 4):
 		super().__init__()
