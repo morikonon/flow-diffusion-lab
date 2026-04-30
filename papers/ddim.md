@@ -9,9 +9,9 @@ x_t -> x_{t - 1}
 x_{t-1} = √α_{t-1} * x_0 + √(1 - α_{t-1}) * ε_θ(x_t, t)
 
 ## Why it's better
--- faster sampling (fewers steps needed)
--- determenistic generation (same input -> same output)
--- controllable trade-off between speed and quality
+- faster sampling (fewers steps needed)
+- determenistic generation (same input -> same output)
+- controllable trade-off between speed and quality
 
 ## Used in this project
 We use DDIM sampling to accelerate image generation during inference.
