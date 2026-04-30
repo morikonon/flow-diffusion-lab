@@ -3,7 +3,7 @@ numpy
 torchvision
 transformers
 matplotlib
-cv2
+opencv-python
 fastapi
 streamlit
 fastapi
