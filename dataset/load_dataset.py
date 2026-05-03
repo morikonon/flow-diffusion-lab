@@ -1,9 +1,9 @@
 import torch
 from torch.utils.data import DataLoader
 from torchvision.transforms import transforms
-from torchvision.datasets import CIFAR10
+from torchvision.datasets import CIFAR10, CIFAR100
 
-
+# Function to loader dataset and preprocess it
 def load_dataset(dataset_name: str = "CIFAR10", batch_size: int = 32, shuffle: bool = True):
 
 	try:
@@ -18,6 +18,22 @@ def load_dataset(dataset_name: str = "CIFAR10", batch_size: int = 32, shuffle: b
 			data_loader = DataLoader(dataset=dataset, batch_size=batch_size, shuffle=shuffle)
 
 			print(f"Dataset: {dataset_name} is loaded| len: {len(data_loader)}")
+
+			return data_loader
+		
+		elif dataset_name == "CIFAR100":
+
+			transform = transforms.Compose([
+				transforms.ToTensor()
+			])
+
+			dataset = CIFAR100(root="./", train=True, shuffle=True, transform=transform)
+			data_loader = DataLoader(dataset=dataset, batch_size=batch_size, shuffle=shuffle)
+
+			print(f"Dataset: {dataset_name} is loaded| len: {len(data_loader)}")
+
+			return data_loader
+
 		else:
 			print(f"This {dataset_name} is not available yet!")
 	except FileNotFoundError:
