@@ -1,4 +1,5 @@
 import torch
+import math
 
 def get_patch_position_embedding(pos_emb_dim, grid_size, device):
 	grid_size_h, grid_size_w = grid_size
@@ -21,3 +22,12 @@ def get_patch_position_embedding(pos_emb_dim, grid_size, device):
 
 	pos_emb = torch.cat([grid_h_emb, grid_w_emb], dim=-1)
 	return pos_emb
+
+def get_timestep_embedding(timestep, embedding_dim):
+	half_dim = timestep / 2
+	exponent = -math.log(10000) * torch.arange(half_dim, dtype=torch.float32, device=timestep.device)
+	exponent = exponent / half_dim
+	emb = torch.exp(exponent)
+	emb = timestep[:, None].float() * emb[None, :]
+	emb = torch.cat([torch.sin(emb), torch.cos(emb)], dim=-)
+	return emb
