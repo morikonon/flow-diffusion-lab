@@ -29,5 +29,5 @@ def get_timestep_embedding(timestep, embedding_dim):
 	exponent = exponent / half_dim
 	emb = torch.exp(exponent)
 	emb = timestep[:, None].float() * emb[None, :]
-	emb = torch.cat([torch.sin(emb), torch.cos(emb)], dim=-)
+	emb = torch.cat([torch.sin(emb), torch.cos(emb)], dim=-1)
 	return emb
