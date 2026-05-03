@@ -1,6 +1,34 @@
 import torch
 import torch.nn as nn
 import math
+from einops import rearrange
+
+class PatchEmbedding(nn.Module):
+	def __init__(self, image_height, image_width, in_channels, patch_height, patch_width, hidden_size):
+		super().__init__()
+		self.image_height = image_height
+		self.image_width = image_width
+		self.in_channels = in_channels
+		self.hidden_size = hidden_size
+		self.patch_height = patch_height
+		self.patch_width = patch_width
+	
+		patch_dim = self.in_channels * self.patch_height * self.patch_width
+		self.patch_embed = nn.Linear(patch_dim, self.hidden_size)
+
+		nn.init.xavier_uniform(self.patch_embed.weigth)
+		nn.init.constant_(self.patch_embed.bias, val=0)
+	
+	def forward(self, x):
+		grid_size_h = self.image_height // self.patch_height
+		grid_size_w = self.image_width // self.patch_width
+
+		out = rearrange(x, "b c (nh ph) (nw pw) -> b (nh nw) (ph pw c)", ph=self.patch_height, pw=self.patch_width)
+		out = self.patch_embed(out)
+
+		pos_embed = get_patch_position_embedding(pos_emb_dim=self.hidden_size, grid_size=(grid_size_h, grid_size_w), device=x.device)
+		out += pos_embed.unsqueeze(0)
+		return out
 
 # 1. Sinusoidal embeddings for time t
 class TimestepEmbedder(nn.Module):
