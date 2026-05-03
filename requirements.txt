@@ -8,3 +8,5 @@ fastapi
 streamlit
 fastapi
 pydantic
+tqdm
+einops
