@@ -24,7 +24,7 @@ def get_patch_position_embedding(pos_emb_dim, grid_size, device):
 	return pos_emb
 
 def get_timestep_embedding(timestep, embedding_dim):
-	half_dim = timestep / 2
+	half_dim = embedding_dim // 2
 	exponent = -math.log(10000) * torch.arange(half_dim, dtype=torch.float32, device=timestep.device)
 	exponent = exponent / half_dim
 	emb = torch.exp(exponent)

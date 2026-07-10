@@ -1,12 +1,11 @@
 torch
-numpy 
+numpy
 torchvision
 transformers
 matplotlib
 opencv-python
 fastapi
 streamlit
-fastapi
 pydantic
 tqdm
 einops
